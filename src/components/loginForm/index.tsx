@@ -11,15 +11,25 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FormEvent } from "react";
 
-export const handleSubmit = (event: FormEvent) => {
-  event.preventDefault();
+import { Link as RouterLink } from "react-router-dom";
+import { ILoginData } from "../../@types/login";
+import { useLogin } from "../../Providers/LoginProvider";
 
-  alert("Seja bem vindo!");
-};
+const LoginForm: React.FC<{}> = () => {
+  const { login } = useLogin();
 
-const LoginForm = () => {
+  const handleSubmit: React.FormEventHandler = async (event): Promise<void> => {
+    event.preventDefault();
+
+    const { target: form } = event;
+    const userData = Object.fromEntries(
+      new FormData(form as HTMLFormElement).entries()
+    ) as ILoginData;
+
+    login(userData);
+  };
+
   return (
     <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
       <Stack align={"center"}>
@@ -37,11 +47,11 @@ const LoginForm = () => {
         <Stack spacing={4} as="form" onSubmit={handleSubmit}>
           <FormControl id="email">
             <FormLabel>Email</FormLabel>
-            <Input type="email" required />
+            <Input type="email" required name="email" />
           </FormControl>
           <FormControl id="password">
             <FormLabel>Senha</FormLabel>
-            <Input type="password" required />
+            <Input type="password" required name="password" />
           </FormControl>
           <Stack spacing={10}>
             <Stack
@@ -50,7 +60,10 @@ const LoginForm = () => {
               justify={"space-between"}
             >
               <Checkbox>Lembre de mim</Checkbox>
-              <Link color={"blue.400"}>Esqueceu sua senha?</Link>
+
+              <Link color={"blue.400"} as={RouterLink} to="/signup">
+                Cadastrar-se
+              </Link>
             </Stack>
             <Button
               type="submit"

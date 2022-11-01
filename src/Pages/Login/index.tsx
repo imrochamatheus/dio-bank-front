@@ -1,8 +1,10 @@
 import Header from "../../components/header";
-import { Flex, useColorModeValue, useBreakpointValue } from "@chakra-ui/react";
 import LoginForm from "../../components/loginForm";
 
-const LoginPage = () => {
+import { Flex, useColorModeValue, useBreakpointValue } from "@chakra-ui/react";
+import React from "react";
+
+const LoginPage: React.FC = () => {
   return (
     <>
       <Flex

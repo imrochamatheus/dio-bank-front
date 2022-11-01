@@ -1,6 +1,7 @@
+import * as React from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
-const Header = () => {
+const Header: React.FC<{}> = () => {
   return (
     <Flex
       bg="tomato"
@@ -13,7 +14,7 @@ const Header = () => {
     >
       <Box maxW="1200px" w="100%">
         <Text fontSize="3xl" fontWeight="bold" color="#ffffff">
-          Dio Bank
+          DioBank
         </Text>
       </Box>
     </Flex>
